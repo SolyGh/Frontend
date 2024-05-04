@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
+import axios from "axios";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const StateContext = createContext();
 
@@ -16,6 +17,26 @@ export const ContextProvider = ({ children }) => {
   const [themeSettings, setThemeSettings] = useState(false);
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
+  const [news, setNews] = useState([]);
+  const [totalNews, setTotalNews] = useState(0);
+const [loadingNews , setLoadingNews] = useState(false)
+  const fetchNews = async (page) => {
+    try {
+      setLoadingNews(true)
+      const newsRes = await axios.get(
+        `https://api.marketaux.com/v1/news/all?symbols=TSLA%2CAMZN%2CMSFT&page=${page || 1}&filter_entities=true&language=en&api_token=gYiwQNXuHJa6ijweq3wj1J1EPph3qMZTqFnWznYy`
+      );
+      setLoadingNews(false);
+      setTotalNews(newsRes.data.meta.found > 100 ? 100 : newsRes.data.meta.found);
+      setNews(newsRes.data.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNews();
+  }, []);
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
@@ -51,6 +72,10 @@ export const ContextProvider = ({ children }) => {
         setColor,
         themeSettings,
         setThemeSettings,
+        news,
+        totalNews,
+        fetchNews,
+        loadingNews
       }}
     >
       {children}

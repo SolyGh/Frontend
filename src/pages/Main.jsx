@@ -2,13 +2,80 @@ import React from "react";
 import { Button } from "../components";
 import { earningData } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
+import Pagination from "../components/pagination/Pagination";
+import { Loading } from "../components/loading/Loading";
 
 const Main = () => {
-  const { currentColor } = useStateContext();
+  const { news, loadingNews } = useStateContext();
+  const timeAgo = (publishedAt) => {
+    const date = new Date(publishedAt);
+    const now = new Date();
+
+    const seconds = Math.floor((now - date) / 1000);
+    let interval = Math.floor(seconds / 31536000);
+
+    if (interval >= 1) {
+      return interval + " year" + (interval === 1 ? "" : "s") + " ago";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval >= 1) {
+      return interval + " month" + (interval === 1 ? "" : "s") + " ago";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval >= 1) {
+      return interval + " day" + (interval === 1 ? "" : "s") + " ago";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval >= 1) {
+      return interval + " hour" + (interval === 1 ? "" : "s") + " ago";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval >= 1) {
+      return interval + " minute" + (interval === 1 ? "" : "s") + " ago";
+    }
+    return Math.floor(seconds) + " second" + (Math.floor(seconds) === 1 ? "" : "s") + " ago";
+  };
+
   return (
-    <div className="mt-24">
-      <div className="flex flex-wrap lg:flex-nowrap justify-center ">
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
+    <div className="mt-24 ">
+      <div className="flex flex-wrap lg:flex-nowrap justify-center px-5">
+        {loadingNews ? (
+          <div className="flex justify-center items-center" style={{height:"100vh"}}>
+            <Loading />
+          </div>
+        ) : (
+          <ul className="w-full">
+            {news.map((article) => {
+              return (
+                <li className="py-4 w-full">
+                  <div className="flex justify-start">
+                    <div className="flex-shrink-0 mr-3" style={{ width: "220px" }}>
+                      <img src={article.image_url} alt="" className="w-full" />
+                    </div>
+                    <div className="flex-grow">
+                      <div className="flex text-blue-900">
+                        <p>Source: {article.source}</p>
+                        {/* <span className="" style={{maxWidth:"25%"}}> */}
+                        {/* <p className="whitespace-nowrap overflow-ellipsis overflow-hidden">{article.source || "Unknown"}</p> */}
+                        {/* </span> */}
+                        <span className="px-2">.</span>
+                        <p>{timeAgo(article.published_at)}</p>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{article.title}</h3>
+                      <p>{article.description}</p>
+                      <p className="my-2">{article.snippet}</p>
+                      <a href={article.url} target="_blank" rel="noreferrer" className=" hover:text-blue-700">
+                        Read Article
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+
+        {/*  <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
           <div className="flex justify-between items-center">
             <div>
               <p className="font-bold "> Earnings</p>
@@ -20,7 +87,6 @@ const Main = () => {
           </div>
         </div>
 
-        {/* buttons with different colors depend on their data */}
         <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
           {earningData.map((item) => (
             <div
@@ -41,8 +107,9 @@ const Main = () => {
               <p className="text-sm text-gray-400  mt-1">{item.title}</p>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
+      <Pagination />
     </div>
   );
 };

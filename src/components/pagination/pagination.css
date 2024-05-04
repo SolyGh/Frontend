@@ -1,0 +1,19 @@
+.pagination {
+    text-align: center;
+    & button {
+      border: 1px solid white;
+      background-color: #20232A;
+      color: white;
+      padding: 1rem;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      text-decoration: none;
+      &:active,
+      &:hover,
+      &.active {
+        color: #00695c;
+        background-color: wheat;
+        border-color: #00695c;
+      }
+    }
+  }
