@@ -3,12 +3,14 @@ import { Link, NavLink } from "react-router-dom";
 import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
+import { SiGnuprivacyguard } from "react-icons/si";
+import { IoIosLogIn } from "react-icons/io";
 
 import { links } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
-  const { activeMenu, setActiveMenu, screenSize, currentColor } = useStateContext();
+  const { activeMenu, setActiveMenu, screenSize, currentColor, isLoggedIn, setIsLoggedIn } = useStateContext();
 
   //to close menu automatically when you click on any link
   //only if you less than 900
@@ -16,6 +18,10 @@ const Sidebar = () => {
     if (activeMenu && screenSize <= 900) {
       setActiveMenu(false);
     }
+  };
+  const handleLogout = () => {
+    handleCloseSideBar();
+    setIsLoggedIn(false);
   };
   const activeLink = "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2";
   const normalLink =
@@ -26,13 +32,13 @@ const Sidebar = () => {
       {activeMenu && (
         <>
           {/* shoppy logo and cancel button */}
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-4">
             <Link
               to="/"
               onClick={() => handleCloseSideBar}
               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extralight tracking-tight dark:text-white text-slate-900"
             >
-              <SiShopware /> <span>Shoppy</span>
+              <SiShopware /> <span>PFMS</span>
             </Link>
             <TooltipComponent content="Menu" position="BottomCenter">
               <button
@@ -45,8 +51,45 @@ const Sidebar = () => {
             </TooltipComponent>
           </div>
 
-          {/* links and mapping into that */}
-          <div className="mt-10">
+          {isLoggedIn ? (
+            <NavLink
+              to="login"
+              onClick={handleLogout}
+              className={({ isActive }) => (isActive ? activeLink : normalLink)}
+              style={({ isActive }) => ({
+                background: isActive ? currentColor : "",
+              })}
+            >
+              <IoIosLogIn />
+              <span className="capitalize">Logout</span>
+            </NavLink>
+          ) : (
+            <>
+              <NavLink
+                to="sign-up"
+                onClick={handleCloseSideBar}
+                className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                style={({ isActive }) => ({
+                  background: isActive ? currentColor : "",
+                })}
+              >
+                <SiGnuprivacyguard />
+                <span className="capitalize">Sign Up</span>
+              </NavLink>
+              <NavLink
+                to="login"
+                onClick={handleCloseSideBar}
+                className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                style={({ isActive }) => ({
+                  background: isActive ? currentColor : "",
+                })}
+              >
+                <IoIosLogIn />
+                <span className="capitalize">Login</span>
+              </NavLink>
+            </>
+          )}
+          <div>
             {links.map((item) => (
               <div key={item.title}>
                 <p className="text-gray-400 m-3 mt-4 uppercase">{item.title}</p>

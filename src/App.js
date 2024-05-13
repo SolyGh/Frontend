@@ -17,6 +17,8 @@ import {
   Pie,
   Financial,
   ColorMapping,
+  SignUp,
+  Login,
 } from "./pages";
 import "./App.css";
 
@@ -73,6 +75,9 @@ const App = () => {
                 <Route path="/most-actives" element={<MostActives />} />
                 <Route path="/gainers" element={<Gainers />} />
                 <Route path="/losers" element={<Losers />} />
+
+                <Route path="/Sign-up" element={<SignUp />} />
+                <Route path="/login" element={<Login />} />
 
                 <Route path="/line" element={<Line />} />
                 <Route path="/area" element={<Area />} />

@@ -546,27 +546,6 @@ export const cartData = [
   },
 ];
 
-export const chatData = [
-  {
-    image: avatar3,
-    message: "New message received",
-    desc: "Salma sent you new message",
-    time: "11:56 AM",
-  },
-  {
-    image: avatar4,
-    message: "New Payment received",
-    desc: "Check your earnings",
-    time: "4:39 AM",
-  },
-  {
-    image: avatar,
-    message: "Jolly completed tasks",
-    desc: "Assign her new tasks",
-    time: "1:12 AM",
-  },
-];
-
 export const earningData = [
   {
     icon: <MdOutlineSupervisorAccount />,
