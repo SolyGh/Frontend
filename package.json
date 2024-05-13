@@ -1,6 +1,6 @@
 {
   "name": "project_syncfusion_dashboard",
-  "homepage": "https://github.com/portfolio-financilal-mangement-system/Frontend",
+  "homepage": "https://m2001said.github.io/portfolio-financilal-mangement-system/Frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -55,6 +55,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.6",
     "tailwindcss": "^3.0.19"
   }
