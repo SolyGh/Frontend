@@ -13,11 +13,9 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [errors, setErrors] = useState({});
 
+  //   todo here i need when mount the page with axios.get("https://backend-production-fb5e.up.railway.app/user/me -->
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -25,37 +23,32 @@ const SignUp = () => {
     if (!username.trim()) newErrors.username = "Username is required.";
     if (!firstName.trim()) newErrors.firstName = "First name is required.";
     if (!lastName.trim()) newErrors.lastName = "Last name is required.";
-    if (!email.trim()) newErrors.email = "Email is required.";
-    if (!password.trim()) newErrors.password = "Password is required.";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    try {
-      setErrors(false);
-      const response = await axios.post("https://backend-production-fb5e.up.railway.app/user", {
-        username,
-        firstname: firstName,
-        lastname: lastName,
-        email,
-        password,
-      });
-      console.log("User created successfully:", response.data);
-      setSuccessMessage(true);
-      setUsername("");
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setLoading(false);
-    } catch (error) {
-      if (error.response) {
-        console.error("signUp error:", error.response.data);
-        setError(error.response.data.error);
-      }
-    }
+    // try {
+    //   setErrors(false);
+    //   const response = await axios.post("https://backend-production-fb5e.up.railway.app/user", {
+    //     username,
+    //     firstname: firstName,
+    //     lastname: lastName,
+    //     email,
+    //     password,
+    //   });
+    //   console.log("User created successfully:", response.data);
+    //   setSuccessMessage(true);
+    //   setUsername("");
+    //   setFirstName("");
+    //   setLastName("");
+    //   setLoading(false);
+    // } catch (error) {
+    //   if (error.response) {
+    //     console.error("API error:", error.response.data);
+    //   }
+    // }
     setLoading(false);
   };
 
@@ -94,31 +87,10 @@ const SignUp = () => {
         error={errors.lastName}
         setError={(error) => setErrors({ ...errors, lastName: error })}
       />
-      <InputField
-        id="email"
-        label="Email"
-        type="email"
-        value={email}
-        setValue={setEmail}
-        placeholder="Email"
-        error={errors.email}
-        setError={(error) => setErrors({ ...errors, email: error })}
-      />
-      <InputField
-        id="password"
-        label="Password"
-        type="password"
-        value={password}
-        setValue={setPassword}
-        placeholder="******************"
-        error={errors.password}
-        setError={(error) => setErrors({ ...errors, password: error })}
-      />
 
-      {error && <p className="text-red-500 text-center p-2 ">Error : {error}</p>}
       {successMessage && (
         <p className="text-center font-semibold mt-4  p-2" style={{ color: currentColor }}>
-          Successfully, You have an account so go to login page
+          Successfully, You updated your information
         </p>
       )}
 
@@ -127,15 +99,9 @@ const SignUp = () => {
         style={{ background: currentColor }}
         type="submit"
       >
-        Sign Up
+        Update your information
         {loading && <Loading height={15} width={15}></Loading>}
       </button>
-      <div className="flex items-center justify-center w-full gap-2 py-2 px-4">
-        <p>you have an account! Go to </p>
-        <Link to="/login" className="font-bold" style={{ color: currentColor }} type="submit">
-          Login
-        </Link>
-      </div>
     </form>
   );
 };

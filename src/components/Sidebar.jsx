@@ -5,6 +5,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { SiGnuprivacyguard } from "react-icons/si";
 import { IoIosLogIn } from "react-icons/io";
+import { FaRegUserCircle } from "react-icons/fa";
 
 import { links } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -22,6 +23,7 @@ const Sidebar = () => {
   const handleLogout = () => {
     handleCloseSideBar();
     setIsLoggedIn(false);
+    localStorage.removeItem("token");
   };
   const activeLink = "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2";
   const normalLink =
@@ -52,17 +54,31 @@ const Sidebar = () => {
           </div>
 
           {isLoggedIn ? (
-            <NavLink
-              to="login"
-              onClick={handleLogout}
-              className={({ isActive }) => (isActive ? activeLink : normalLink)}
-              style={({ isActive }) => ({
-                background: isActive ? currentColor : "",
-              })}
-            >
-              <IoIosLogIn />
-              <span className="capitalize">Logout</span>
-            </NavLink>
+            <>
+              <NavLink
+                to="login"
+                onClick={handleLogout}
+                className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                style={({ isActive }) => ({
+                  background: isActive ? currentColor : "",
+                })}
+              >
+                <IoIosLogIn />
+                <span className="capitalize">Logout</span>
+              </NavLink>
+
+              <NavLink
+                to="user-info"
+                onClick={handleCloseSideBar}
+                className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                style={({ isActive }) => ({
+                  background: isActive ? currentColor : "",
+                })}
+              >
+                <FaRegUserCircle />
+                <span className="capitalize">User Information</span>
+              </NavLink>
+            </>
           ) : (
             <>
               <NavLink

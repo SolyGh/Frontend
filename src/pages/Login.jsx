@@ -3,58 +3,51 @@ import React, { useState } from "react";
 import InputField from "../components/InputField";
 import { useStateContext } from "../contexts/ContextProvider";
 import { Loading } from "../components/loading/Loading";
-import { Link } from "react-router-dom";
+import { Link, Router } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { currentColor, setIsLoggedIn } = useStateContext();
-
+  const navigate = useNavigate();
   const [successMessage, setSuccessMessage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     const newErrors = {};
     if (!email.trim()) newErrors.email = "Email is required.";
     if (!password.trim()) newErrors.password = "Password is required.";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.post("https://backend-3w2u.onrender.com/user/login", {
+      const response = await axios.post("https://backend-production-fb5e.up.railway.app/user/login", {
         email,
         password,
       });
       console.log("Login successfully:", response.data);
 
-      // todo add here router.push to the main page or what we need
-      //   const accessToken = response.data.accessToken;
-      //   localStorage.setItem("token", accessToken);
+      // todo add here the right route instead of most-actives
+      navigate("/most-actives");
+      const accessToken = response.data.accessToken;
+      localStorage.setItem("token", accessToken);
       setIsLoggedIn(true);
+      setEmail("");
+      setPassword("");
       setLoading(false);
     } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.error("API error:", error.response.data);
-        if (error.response.status === 400) {
-          setErrors({ form: "Please fill in all required fields." });
-        } else if (error.response.status === 500) {
-          setErrors({ form: "Internal server error. Please try again later." });
-        }
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.error("Network error:", error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.error("Error:", error.message);
-      }
+      console.error("login error:", error.response.data);
+      setError(error.response.data.error);
     }
     setLoading(false);
   };
@@ -85,6 +78,13 @@ const Login = () => {
         setError={(error) => setErrors({ ...errors, password: error })}
       />
 
+      {error && <p className="text-red-500 text-center p-2 ">Error : {error}</p>}
+      {successMessage && (
+        <p className="text-center font-semibold mt-4 border-t-2 p-2" style={{ color: currentColor }}>
+          Successfully, You have an account so go to login page
+        </p>
+      )}
+
       <button
         className="flex items-center justify-center gap-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         style={{ background: currentColor }}
@@ -100,12 +100,6 @@ const Login = () => {
           Sign UP
         </Link>
       </div>
-
-      {successMessage && (
-        <p className="text-center font-semibold mt-4 border-t-2 p-2" style={{ color: currentColor }}>
-          Successfully, You have an account so go to login page
-        </p>
-      )}
     </form>
   );
 };

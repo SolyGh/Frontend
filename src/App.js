@@ -3,7 +3,7 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { useStateContext } from "./contexts/ContextProvider";
-import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
+import { Navbar, Sidebar, ThemeSettings } from "./components";
 import {
   Main,
   MostActives,
@@ -19,6 +19,7 @@ import {
   ColorMapping,
   SignUp,
   Login,
+  UserInformation,
 } from "./pages";
 import "./App.css";
 
@@ -78,6 +79,7 @@ const App = () => {
 
                 <Route path="/Sign-up" element={<SignUp />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/user-info" element={<UserInformation />} />
 
                 <Route path="/line" element={<Line />} />
                 <Route path="/area" element={<Area />} />
