@@ -51,16 +51,16 @@ const SignUp = () => {
     try {
       setErrors(false);
       const response = await axios.patch(
-        "https://backend-production-fb5e.up.railway.app/user/update",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        "https://backend-production-fb5e.up.railway.app/user",
         {
           username,
           firstname: firstName,
           lastname: lastName,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       console.log("User created successfully:", response.data);
@@ -79,7 +79,7 @@ const SignUp = () => {
 
   const deleteAccount = async () => {
     try {
-      await axios.delete("https://backend-production-fb5e.up.railway.app/user/delete", {
+      await axios.delete("https://backend-production-fb5e.up.railway.app/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
