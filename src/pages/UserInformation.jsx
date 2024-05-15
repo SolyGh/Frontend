@@ -1,12 +1,14 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import InputField from "../components/InputField";
 import { useStateContext } from "../contexts/ContextProvider";
 import { Loading } from "../components/loading/Loading";
 
 const SignUp = () => {
-  const { currentColor } = useStateContext();
+  const navigate = useNavigate();
+  const { currentColor, setIsLoggedIn, token, setAllTokens } = useStateContext();
 
   const [successMessage, setSuccessMessage] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,24 @@ const SignUp = () => {
   const [lastName, setLastName] = useState("");
   const [errors, setErrors] = useState({});
 
-  //   todo here i need when mount the page with axios.get("https://backend-production-fb5e.up.railway.app/user/me -->
+  useEffect(async () => {
+    try {
+      const response = await axios.get("https://backend-production-fb5e.up.railway.app/user/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("User created successfully:", response.data);
+      setUsername(response.data.username);
+      setFirstName(response.data.firstname);
+      setLastName(response.data.lastname);
+    } catch (error) {
+      if (error.response) {
+        console.error("get User info error:", error.response.data);
+      }
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -29,27 +48,50 @@ const SignUp = () => {
       return;
     }
 
-    // try {
-    //   setErrors(false);
-    //   const response = await axios.post("https://backend-production-fb5e.up.railway.app/user", {
-    //     username,
-    //     firstname: firstName,
-    //     lastname: lastName,
-    //     email,
-    //     password,
-    //   });
-    //   console.log("User created successfully:", response.data);
-    //   setSuccessMessage(true);
-    //   setUsername("");
-    //   setFirstName("");
-    //   setLastName("");
-    //   setLoading(false);
-    // } catch (error) {
-    //   if (error.response) {
-    //     console.error("API error:", error.response.data);
-    //   }
-    // }
+    try {
+      setErrors(false);
+      const response = await axios.patch(
+        "https://backend-production-fb5e.up.railway.app/user/update",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          username,
+          firstname: firstName,
+          lastname: lastName,
+        }
+      );
+      console.log("User created successfully:", response.data);
+      setSuccessMessage(true);
+      setUsername(response.data.username);
+      setFirstName(response.data.firstname);
+      setLastName(response.data.lastname);
+      setLoading(false);
+    } catch (error) {
+      if (error.response) {
+        console.error("update error:", error.response.data);
+      }
+    }
     setLoading(false);
+  };
+
+  const deleteAccount = async () => {
+    try {
+      await axios.delete("https://backend-production-fb5e.up.railway.app/user/delete", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setIsLoggedIn(false);
+      setAllTokens("");
+      navigate("/sign-up");
+    } catch (error) {
+      if (error.response) {
+        console.error("delete function error:", error.response.data);
+      }
+    }
   };
 
   return (
@@ -101,6 +143,14 @@ const SignUp = () => {
       >
         Update your information
         {loading && <Loading height={15} width={15}></Loading>}
+      </button>
+
+      <button
+        className="w-full mt-4 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        type="button"
+        onClick={deleteAccount}
+      >
+        Delete your Account
       </button>
     </form>
   );

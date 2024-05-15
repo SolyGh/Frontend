@@ -19,6 +19,7 @@ export const ContextProvider = ({ children }) => {
   const [totalNews, setTotalNews] = useState(0);
   const [loadingNews, setLoadingNews] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState("");
 
   const fetchNews = async (page) => {
     try {
@@ -59,6 +60,11 @@ export const ContextProvider = ({ children }) => {
     setIsLoggedIn(false); // Sets isLoggedIn to false
   };
 
+  const setAllTokens = (token) => {
+    setToken(token);
+    localStorage.setItem("token", token);
+  };
+
   return (
     <StateContext.Provider
       value={{
@@ -85,6 +91,8 @@ export const ContextProvider = ({ children }) => {
         isLoggedIn,
         setIsLoggedIn,
         logout,
+        token,
+        setAllTokens,
       }}
     >
       {children}
