@@ -11,7 +11,8 @@ import { links } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
-  const { activeMenu, setActiveMenu, screenSize, currentColor, isLoggedIn, setIsLoggedIn } = useStateContext();
+  const { activeMenu, setActiveMenu, screenSize, currentColor, isLoggedIn, setIsLoggedIn, setAllTokens } =
+    useStateContext();
 
   //to close menu automatically when you click on any link
   //only if you less than 900
@@ -23,7 +24,7 @@ const Sidebar = () => {
   const handleLogout = () => {
     handleCloseSideBar();
     setIsLoggedIn(false);
-    localStorage.removeItem("token");
+    setAllTokens("");
   };
   const activeLink = "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2";
   const normalLink =

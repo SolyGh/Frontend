@@ -1,13 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import InputField from "../components/InputField";
 import { useStateContext } from "../contexts/ContextProvider";
 import { Loading } from "../components/loading/Loading";
-import { Link, Router } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { currentColor, setIsLoggedIn } = useStateContext();
+  const { currentColor, setIsLoggedIn, setAllTokens } = useStateContext();
   const navigate = useNavigate();
   const [successMessage, setSuccessMessage] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -35,12 +36,10 @@ const Login = () => {
         email,
         password,
       });
-      console.log("Login successfully:", response.data);
 
       // todo add here the right route instead of most-actives
       navigate("/most-actives");
-      const accessToken = response.data.accessToken;
-      localStorage.setItem("token", accessToken);
+      setAllTokens(response.data.token);
       setIsLoggedIn(true);
       setEmail("");
       setPassword("");

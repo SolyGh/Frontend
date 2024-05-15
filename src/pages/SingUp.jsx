@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import InputField from "../components/InputField";
 import { useStateContext } from "../contexts/ContextProvider";
 import { Loading } from "../components/loading/Loading";
 
 const SignUp = () => {
   const { currentColor } = useStateContext();
+  const navigate = useNavigate();
 
   const [successMessage, setSuccessMessage] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -50,6 +53,7 @@ const SignUp = () => {
       setEmail("");
       setPassword("");
       setLoading(false);
+      navigate("/login");
     } catch (error) {
       if (error.response) {
         console.error("signUp error:", error.response.data);
