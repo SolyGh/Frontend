@@ -24,8 +24,17 @@ import {
 import "./App.css";
 
 const App = () => {
-  const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } =
-    useStateContext();
+  const {
+    setCurrentColor,
+    setCurrentMode,
+    currentMode,
+    activeMenu,
+    currentColor,
+    themeSettings,
+    setThemeSettings,
+    setAllTokens,
+    setIsLoggedIn,
+  } = useStateContext();
 
   useEffect(() => {
     const currentThemeColor = localStorage.getItem("colorMode");
@@ -33,6 +42,11 @@ const App = () => {
     if (currentThemeColor && currentThemeMode) {
       setCurrentColor(currentThemeColor);
       setCurrentMode(currentThemeMode);
+    }
+    const token = localStorage.getItem("token");
+    if (token.length > 0) {
+      setAllTokens(token);
+      setIsLoggedIn(true);
     }
   }, []);
   return (
