@@ -47,7 +47,7 @@ const Main = () => {
           <ul className="w-full">
             {news.map((article) => {
               return (
-                <li className="py-4 w-full">
+                <li className="py-4 w-full" key={article.source}>
                   <div className="flex justify-start">
                     <div className="flex-shrink-0 mr-3" style={{ width: "220px" }}>
                       <img src={article.image_url} alt="" className="w-full" />

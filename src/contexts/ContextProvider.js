@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useState, useEffect } from "react";
-
+//https://backend-production-fb5e.up.railway.app/user/login
 const StateContext = createContext();
 
 const initialState = {
@@ -16,10 +16,12 @@ export const ContextProvider = ({ children }) => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
   const [news, setNews] = useState([]);
+  const [stocks, setStocks] = useState([]);
+  const [portfolios, setPortfolios] = useState([]);
   const [totalNews, setTotalNews] = useState(0);
   const [loadingNews, setLoadingNews] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   const fetchNews = async (page) => {
     try {
@@ -39,6 +41,8 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchNews();
+    getStocks();
+    getPortfolios();
   }, []);
 
   const setMode = (e) => {
@@ -63,6 +67,31 @@ export const ContextProvider = ({ children }) => {
   const setAllTokens = (token) => {
     setToken(token);
     localStorage.setItem("token", token);
+  };
+
+  const getPortfolios = async () => {
+    const res = await axios.get("https://backend-production-ac54.up.railway.app/portfolio/all-portfolios", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    setPortfolios(res.data.portfolios);
+  };
+
+  const getStocks = async () => {
+    const res = await axios.get("https://backend-production-ac54.up.railway.app/stocks/all", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    let companies = res.data.companies;
+    companies = companies.map((element) => {
+      return { ...element, symbol: element.symbol.symbol, averageDailyVolume3Month: element.symbol.averageDailyVolume3Month };
+    });
+    setStocks(companies);
+
+    // lading
+    // navigate to your website
   };
 
   return (
@@ -93,6 +122,9 @@ export const ContextProvider = ({ children }) => {
         logout,
         token,
         setAllTokens,
+        stocks,
+        getPortfolios,
+        portfolios,
       }}
     >
       {children}

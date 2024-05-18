@@ -19,6 +19,7 @@ import product4 from "./product4.jpg";
 import product5 from "./product5.jpg";
 import product6 from "./product6.jpg";
 import product7 from "./product7.jpg";
+import { textWrap } from "@syncfusion/ej2-react-charts";
 
 export const gridOrderImage = (props) => (
   <div>
@@ -27,11 +28,7 @@ export const gridOrderImage = (props) => (
 );
 
 export const gridOrderStatus = (props) => (
-  <button
-    type="button"
-    style={{ background: props.StatusBg }}
-    className="text-white py-1 px-2 capitalize rounded-2xl text-md"
-  >
+  <button type="button" style={{ background: props.StatusBg }} className="text-white py-1 px-2 capitalize rounded-2xl text-md">
     {props.Status}
   </button>
 );
@@ -66,32 +63,25 @@ const gridEmployeeCountry = (props) => (
 export const EditorData = () => (
   <div>
     <h3>
-      Try React React has been designed from the start for gradual adoption, and you can use as little or as much React
-      as you need. Whether you want to get a taste of React, add some interactivity to a simple HTML page, or start a
-      complex React-powered app, the links in this section will help you get started. Online Playgrounds If you’re
-      interested in playing around with React, you can use an online code playground. Try a Hello World template on
-      CodePen, CodeSandbox, or Stackblitz. If you prefer to use your own text editor, you can also download this HTML
-      file, edit it, and open it from the local filesystem in your browser. It does a slow runtime code transformation,
-      so we’d only recommend using this for simple demos. Add React to a Website You can add React to an HTML page in
-      one minute. You can then either gradually expand its presence, or keep it contained to a few dynamic widgets.
-      Create a New React App When starting a React project, a simple HTML page with script tags might still be the best
-      option. It only takes a minute to set up! As your application grows, you might want to consider a more integrated
-      setup. There are several JavaScript toolchains we recommend for larger applications. Each of them can work with
-      little to no configuration and lets you take full advantage of the rich React ecosystem. Learn how. Learn React
-      People come to React from different backgrounds and with different learning styles. Whether you prefer a more
-      theoretical or a practical approach, we hope you’ll find this section helpful. If you prefer to learn by doing,
-      start with our practical tutorial. If you prefer to learn concepts step by step, start with our guide to main
-      concepts. Like any unfamiliar technology, React does have a learning curve. With practice and some patience, you
-      will get the hang of it. First Examples The React homepage contains a few small React examples with a live editor.
-      Even if you don’t know anything about React yet, try changing their code and see how it affects the result. React
-      for Beginners If you feel that the React documentation goes at a faster pace than you’re comfortable with, check
-      out this overview of React by Tania Rascia. It introduces the most important React concepts in a detailed,
-      beginner-friendly way. Once you’re done, give the documentation another try! React for Designers If you’re coming
-      from a design background, these resources are a great place to get started. JavaScript Resources The React
-      documentation assumes some familiarity with programming in the JavaScript language. You don’t have to be an
-      expert, but it’s harder to learn both React and JavaScript at the same time. We recommend going through this
-      JavaScript overview to check your knowledge level. It will take you between 30 minutes and an hour but you will
-      feel more confident learning React.
+      Try React React has been designed from the start for gradual adoption, and you can use as little or as much React as you need. Whether you want to get a
+      taste of React, add some interactivity to a simple HTML page, or start a complex React-powered app, the links in this section will help you get started.
+      Online Playgrounds If you’re interested in playing around with React, you can use an online code playground. Try a Hello World template on CodePen,
+      CodeSandbox, or Stackblitz. If you prefer to use your own text editor, you can also download this HTML file, edit it, and open it from the local
+      filesystem in your browser. It does a slow runtime code transformation, so we’d only recommend using this for simple demos. Add React to a Website You can
+      add React to an HTML page in one minute. You can then either gradually expand its presence, or keep it contained to a few dynamic widgets. Create a New
+      React App When starting a React project, a simple HTML page with script tags might still be the best option. It only takes a minute to set up! As your
+      application grows, you might want to consider a more integrated setup. There are several JavaScript toolchains we recommend for larger applications. Each
+      of them can work with little to no configuration and lets you take full advantage of the rich React ecosystem. Learn how. Learn React People come to React
+      from different backgrounds and with different learning styles. Whether you prefer a more theoretical or a practical approach, we hope you’ll find this
+      section helpful. If you prefer to learn by doing, start with our practical tutorial. If you prefer to learn concepts step by step, start with our guide to
+      main concepts. Like any unfamiliar technology, React does have a learning curve. With practice and some patience, you will get the hang of it. First
+      Examples The React homepage contains a few small React examples with a live editor. Even if you don’t know anything about React yet, try changing their
+      code and see how it affects the result. React for Beginners If you feel that the React documentation goes at a faster pace than you’re comfortable with,
+      check out this overview of React by Tania Rascia. It introduces the most important React concepts in a detailed, beginner-friendly way. Once you’re done,
+      give the documentation another try! React for Designers If you’re coming from a design background, these resources are a great place to get started.
+      JavaScript Resources The React documentation assumes some familiarity with programming in the JavaScript language. You don’t have to be an expert, but
+      it’s harder to learn both React and JavaScript at the same time. We recommend going through this JavaScript overview to check your knowledge level. It
+      will take you between 30 minutes and an hour but you will feel more confident learning React.
     </h3>
   </div>
 );
@@ -325,40 +315,55 @@ export const ColorMappingPrimaryYAxis = {
 
 export const FinancialPrimaryXAxis = {
   valueType: "DateTime",
-  minimum: new Date("2016, 12, 31"),
-  maximum: new Date("2017, 9, 30"),
+  // minimum: new Date("2016, 12, 31"),
+  // maximum: new Date("2017, 9, 30"),
   crosshairTooltip: { enable: true },
   majorGridLines: { width: 0 },
 };
 
 export const FinancialPrimaryYAxis = {
   title: "Price",
-  minimum: 100,
-  maximum: 180,
-  interval: 20,
+  // minimum: 100,
+  // maximum: 180,
+  // interval: 20,
   lineStyle: { width: 0 },
   majorTickLines: { width: 0 },
 };
-
 export const LinePrimaryXAxis = {
   valueType: "DateTime",
-  labelFormat: "y",
-  intervalType: "Years",
+  labelFormat: "MMM dd yy", // Display month abbreviation and day (e.g., Jan 01)
+  intervalType: "Days", // Display each day on the x-axis
   edgeLabelPlacement: "Shift",
   majorGridLines: { width: 0 },
   background: "white",
 };
 
 export const LinePrimaryYAxis = {
-  labelFormat: "{value}%",
+  labelFormat: "${value}", // Display price with $ prefix
   rangePadding: "None",
-  minimum: 0,
-  maximum: 100,
-  interval: 20,
   lineStyle: { width: 0 },
   majorTickLines: { width: 0 },
   minorTickLines: { width: 0 },
 };
+// export const LinePrimaryXAxis = {
+//   valueType: "DateTime",
+//   labelFormat: "y",
+//   intervalType: "Years",
+//   edgeLabelPlacement: "Shift",
+//   majorGridLines: { width: 0 },
+//   background: "white",
+// };
+
+// export const LinePrimaryYAxis = {
+//   labelFormat: "{value}%",
+//   rangePadding: "None",
+//   minimum: 0,
+//   maximum: 100,
+//   interval: 20,
+//   lineStyle: { width: 0 },
+//   majorTickLines: { width: 0 },
+//   minorTickLines: { width: 0 },
+// };
 
 export const customersGrid = [
   { type: "checkbox", width: "50" },
@@ -413,44 +418,135 @@ export const customersGrid = [
   },
 ];
 
-export const employeesGrid = [
+export const portfoliosGrid = [
   {
-    headerText: "Employee",
+    headerText: "Portfolio Name",
     width: "150",
-    template: gridEmployeeProfile,
+    field: "portfolio_name",
     textAlign: "Center",
   },
   { field: "Name", headerText: "", width: "0", textAlign: "Center" },
   {
-    field: "Title",
-    headerText: "Designation",
+    field: "symbols",
+    headerText: "Symbols",
+    width: "150",
+    textAlign: "Center",
+  },
+  {
+    headerText: "Cost Basis",
+    width: "120",
+    textAlign: "Center",
+    field: "cost",
+  },
+
+  {
+    field: "market",
+    headerText: "Market Value",
+    width: "135",
+    textAlign: "Center",
+  },
+  {
+    field: "change",
+    headerText: "Day Change",
+    width: "120",
+    textAlign: "Center",
+  },
+  {
+    field: "unrealized",
+    headerText: "Unrealized Gain/loss",
+    width: "180",
+    textAlign: "Center",
+  },
+  {
+    field: "realized",
+    headerText: "Realized Gain/Loss",
+    width: "180",
+    textAlign: "Center",
+  },
+];
+
+export const symbolsGrid = [
+  {
+    headerText: "Symbol",
+    width: "150",
+    field: "company_name",
+    textAlign: "Center",
+  },
+  { field: "Name", headerText: "", width: "0", textAlign: "Center" },
+  {
+    field: "shares",
+    headerText: "Shares",
+    width: "150",
+    textAlign: "Center",
+  },
+  {
+    headerText: "Total Cost",
+    width: "120",
+    textAlign: "Center",
+    field: "total_cost",
+  },
+
+  {
+    field: "stock_price",
+    headerText: "Last Price",
+    width: "135",
+    textAlign: "Center",
+  },
+];
+export const employeesGrid = [
+  {
+    headerText: "Symbol",
+    width: "150",
+    field: "symbol",
+    textAlign: "Center",
+  },
+  { field: "Name", headerText: "", width: "0", textAlign: "Center" },
+  {
+    field: "name",
+    headerText: "Name",
     width: "170",
     textAlign: "Center",
   },
   {
-    headerText: "Country",
+    headerText: "Price",
     width: "120",
     textAlign: "Center",
-    template: gridEmployeeCountry,
+    field: "price",
   },
 
   {
-    field: "HireDate",
-    headerText: "Hire Date",
+    field: "change",
+    headerText: "Change",
     width: "135",
-    format: "yMd",
     textAlign: "Center",
   },
-
   {
-    field: "ReportsTo",
-    headerText: "Reports To",
+    field: "percentChange",
+    headerText: "% Change",
     width: "120",
     textAlign: "Center",
   },
   {
-    field: "EmployeeID",
-    headerText: "Employee ID",
+    field: "volume",
+    headerText: "Volume",
+    width: "125",
+    textAlign: "Center",
+  },
+  {
+    field: "averageDailyVolume3Month",
+    headerText: "Avg Vol(3 month)",
+    width: "160",
+    textAlign: "Center",
+  },
+  {
+    field: "peRatio",
+    headerText: "PE Ratio",
+    width: "125",
+    textAlign: "Center",
+  },
+  {
+    field: "marketCap",
+    headerText: "Market Cap",
     width: "125",
     textAlign: "Center",
   },
@@ -460,21 +556,21 @@ export const links = [
   {
     title: "Stocks",
     links: [
+      // {
+      //   name: "Most Actives",
+      //   to: "most-actives",
+      //   icon: <AiOutlineShoppingCart />,
+      // },
       {
-        name: "Most Actives",
-        to: "most-actives",
-        icon: <AiOutlineShoppingCart />,
-      },
-      {
-        name: "Gainers",
-        to: "gainers",
+        name: "Stocks",
+        to: "stocks",
         icon: <IoMdContacts />,
       },
-      {
-        name: "Losers",
-        to: "losers",
-        icon: <RiContactsLine />,
-      },
+      // {
+      //   name: "Losers",
+      //   to: "losers",
+      //   icon: <RiContactsLine />,
+      // },
     ],
   },
   {
@@ -2043,8 +2139,7 @@ export const ordersData = [
     Location: "USA",
     Status: "active",
     StatusBg: "#03C9D7",
-    ProductImage:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg",
+    ProductImage: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg",
   },
   {
     OrderID: 24546,
@@ -2178,8 +2273,7 @@ export const ordersData = [
     Location: "USA",
     Status: "active",
     StatusBg: "#03C9D7",
-    ProductImage:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg",
+    ProductImage: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg",
   },
   {
     OrderID: 24546,
@@ -2313,8 +2407,7 @@ export const ordersData = [
     Location: "USA",
     Status: "active",
     StatusBg: "#03C9D7",
-    ProductImage:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg",
+    ProductImage: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg",
   },
   {
     OrderID: 24546,
@@ -2448,8 +2541,7 @@ export const ordersData = [
     Location: "USA",
     Status: "active",
     StatusBg: "#03C9D7",
-    ProductImage:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg",
+    ProductImage: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg",
   },
   {
     OrderID: 24546,
@@ -2583,8 +2675,7 @@ export const ordersData = [
     Location: "USA",
     Status: "active",
     StatusBg: "#03C9D7",
-    ProductImage:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg",
+    ProductImage: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dairy-free-ice-cream-eae372d.jpg",
   },
   {
     OrderID: 24546,

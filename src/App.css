@@ -53,3 +53,26 @@
 .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {
   border: none;
 }
+
+
+.grid-list {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr)); /* Adjust as needed */
+  gap: 25px; /* Adjust gap between grid items */
+  list-style-type: none;
+  padding: 0;
+}
+
+.grid-list li {
+  display: flex;
+  align-items: center; /* Centers items horizontally */
+  justify-content: space-between; /* Centers items vertically */
+  text-align: center; /* Centers text horizontally */
+  border-bottom: 1px dashed #ccc; /* Optional: Add border for visual separation */
+  padding: 10px;
+}
+
+.grid-list li span {
+  margin: 5px 0;
+}
