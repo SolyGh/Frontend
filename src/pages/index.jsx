@@ -1,6 +1,10 @@
 export { default as Main } from "./Main";
 export { default as MostActives } from "./MostActives";
 export { default as Gainers } from "./Gainers";
+export { default as Stock } from "./Stock";
+export { default as Portfolio } from "./Portfolio";
+
+
 export { default as Losers } from "./Losers";
 export { default as SignUp } from "./SingUp";
 export { default as Login } from "./Login";

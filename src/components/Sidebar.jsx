@@ -6,13 +6,13 @@ import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { SiGnuprivacyguard } from "react-icons/si";
 import { IoIosLogIn } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
+import { SiPivotaltracker } from "react-icons/si";
 
 import { links } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
-  const { activeMenu, setActiveMenu, screenSize, currentColor, isLoggedIn, setIsLoggedIn, setAllTokens } =
-    useStateContext();
+  const { activeMenu, setActiveMenu, screenSize, currentColor, isLoggedIn, setIsLoggedIn, setAllTokens } = useStateContext();
 
   //to close menu automatically when you click on any link
   //only if you less than 900
@@ -78,6 +78,18 @@ const Sidebar = () => {
               >
                 <FaRegUserCircle />
                 <span className="capitalize">User Information</span>
+              </NavLink>
+
+              <NavLink
+                to="portfolio"
+                onClick={handleCloseSideBar}
+                className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                style={({ isActive }) => ({
+                  background: isActive ? currentColor : "",
+                })}
+              >
+                <SiPivotaltracker />
+                <span className="capitalize">Portfolio</span>
               </NavLink>
             </>
           ) : (

@@ -8,6 +8,7 @@ import {
   Main,
   MostActives,
   Gainers,
+  Stock,
   Stacked,
   Pyramid,
   Losers,
@@ -20,8 +21,11 @@ import {
   SignUp,
   Login,
   UserInformation,
+  Portfolio,
 } from "./pages";
 import "./App.css";
+import View from "./pages/View";
+import Symbol from "./pages/Symbol";
 
 const App = () => {
   const {
@@ -44,7 +48,7 @@ const App = () => {
       setCurrentMode(currentThemeMode);
     }
     const token = localStorage.getItem("token");
-    if (token.length > 0) {
+    if (token && token.length > 0) {
       setAllTokens(token);
       setIsLoggedIn(true);
     }
@@ -88,12 +92,19 @@ const App = () => {
                 <Route path="/" element={<Main />} />
 
                 <Route path="/most-actives" element={<MostActives />} />
-                <Route path="/gainers" element={<Gainers />} />
+                <Route path="/stocks" element={<Gainers />} />
+                <Route path="/stocks/:stockName" element={<Stock />} />
+
                 <Route path="/losers" element={<Losers />} />
 
                 <Route path="/Sign-up" element={<SignUp />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/user-info" element={<UserInformation />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/portfolio/:company/:id" element={<View />} />
+                <Route path="/portfolio/:company/:portfolio_id/:stock/:stock_id" element={<Symbol />} />
+
+
 
                 <Route path="/line" element={<Line />} />
                 <Route path="/area" element={<Area />} />
