@@ -5,11 +5,12 @@ import { useStateContext } from "../contexts/ContextProvider";
 import axios from "axios"; // Import Axios
 import { Link } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { Loading } from "./loading/Loading";
 
 const Portfolios = () => {
   const toolbarOptions = ["Search"];
-  const { portfolios, getPortfolios, token } = useStateContext();
-  console.log(portfolios)
+  const { portfolios, getPortfolios, token, loadingPortfolios } = useStateContext();
+  console.log(portfolios);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteHandler = async (args) => {
@@ -29,7 +30,11 @@ const Portfolios = () => {
     }
   };
 
-  return (
+  return loadingPortfolios ? (
+    <div className="w-full h-32 flex justify-center items-center">
+      <Loading />
+    </div>
+  ) : (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
       <GridComponent dataSource={portfolios} width="auto" allowPaging allowSorting pageSettings={{ pageCount: 5 }} toolbar={toolbarOptions}>
         <ColumnsDirective>

@@ -12,7 +12,7 @@ import {
 
 import { useStateContext } from "../../contexts/ContextProvider";
 
-const Pie = ({ id, data, legendVisiblity, height }) => {
+const Pie = ({ id, data, legendVisiblity, height ,company }) => {
   const { currentMode } = useStateContext();
 
   return (
@@ -26,7 +26,7 @@ const Pie = ({ id, data, legendVisiblity, height }) => {
       <Inject services={[AccumulationLegend, PieSeries, AccumulationDataLabel, AccumulationTooltip]} />
       <AccumulationSeriesCollectionDirective>
         <AccumulationSeriesDirective
-          name="Sale"
+          name={company}
           dataSource={data}
           xName="x"
           yName="y"

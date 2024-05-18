@@ -81,6 +81,7 @@ import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Lin
 import { useStateContext } from "../../contexts/ContextProvider";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Loading } from "../loading/Loading";
 
 const LineChart = ({ stockName }) => {
   const { currentMode } = useStateContext();
@@ -128,7 +129,9 @@ const LineChart = ({ stockName }) => {
   };
 
   return loading ? (
-    <p>Loading...</p>
+    <div className="w-100 flex justify-center items-center h-32">
+      <Loading />
+    </div>
   ) : (
     <ChartComponent
       id="line-chart"

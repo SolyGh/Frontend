@@ -6,27 +6,30 @@ import { useStateContext } from "../contexts/ContextProvider";
 import { GiCancel } from "react-icons/gi";
 import Symbols from "../components/Symbols";
 import { Link } from "react-router-dom";
+import { Loading } from "../components/loading/Loading";
 
 const View = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopup2, setOpenPopup2] = useState(false);
+  const [loadingSymbols, setLoadingSymbols] = useState(false);
+
   const [symbol, setSymbol] = useState("");
   const [shares, setShares] = useState("");
   const [symbolsPortfolio, setSymbolsPortfolio] = useState([]);
   const [companies, setCompanies] = useState([]);
   const { stocks } = useStateContext();
-  const [portfolio, setPortfolio] = useState({});
-  const { id , company} = useParams();
+  // const [portfolio, setPortfolio] = useState({});
+  const { id, company } = useParams();
   const [loading, setLoading] = useState(false);
 
-  const getPortfolio = async () => {
-    const res = await axios.get(`https://backend-production-ac54.up.railway.app/portfolio/${id}`, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    });
-    setPortfolio(res.data.portfolio);
-  };
+  // const getPortfolio = async () => {
+  //   const res = await axios.get(`https://backend-production-ac54.up.railway.app/portfolio/${id}`, {
+  //     headers: {
+  //       Authorization: "Bearer " + localStorage.getItem("token"),
+  //     },
+  //   });
+  //   setPortfolio(res.data.portfolio);
+  // };
   const handleEnterSymbol = (e) => {
     const value = e.target.value;
     setSymbol(value);
@@ -60,6 +63,7 @@ const View = () => {
 
   const getSymbolsOfPortfolio = async () => {
     setOpenPopup(false);
+    setLoadingSymbols(true);
     const res = await axios.get(`https://backend-production-ac54.up.railway.app/stocks/read-all-stocks/${id}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -67,10 +71,11 @@ const View = () => {
     });
     console.log(res.data);
     setSymbolsPortfolio(res.data);
+    setLoadingSymbols(false);
   };
 
   useEffect(() => {
-    getPortfolio();
+    // getPortfolio();
     getSymbolsOfPortfolio();
   }, []);
   return (
@@ -162,9 +167,15 @@ const View = () => {
             )}
           </div>
         </div>
-        <div className="z-20">
-          <Symbols symbols={symbolsPortfolio} getSymbols={getSymbolsOfPortfolio} />
-        </div>
+        {loadingSymbols ? (
+          <div className="w-100 flex justify-center items-center h-32">
+            <Loading />
+          </div>
+        ) : (
+          <div className="z-20">
+            <Symbols symbols={symbolsPortfolio} getSymbols={getSymbolsOfPortfolio} />
+          </div>
+        )}
       </div>
     </div>
   );

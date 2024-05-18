@@ -8,6 +8,8 @@ import { MdOutlineSupervisorAccount } from "react-icons/md";
 import { HiOutlineRefresh } from "react-icons/hi";
 import { TiTick } from "react-icons/ti";
 import { GiLouvrePyramid } from "react-icons/gi";
+
+import { FaRegNewspaper } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
 import avatar from "./avatar.jpg";
 import avatar3 from "./avatar3.png";
@@ -445,24 +447,24 @@ export const portfoliosGrid = [
     width: "135",
     textAlign: "Center",
   },
-  {
-    field: "change",
-    headerText: "Day Change",
-    width: "120",
-    textAlign: "Center",
-  },
-  {
-    field: "unrealized",
-    headerText: "Unrealized Gain/loss",
-    width: "180",
-    textAlign: "Center",
-  },
-  {
-    field: "realized",
-    headerText: "Realized Gain/Loss",
-    width: "180",
-    textAlign: "Center",
-  },
+  // {
+  //   field: "change",
+  //   headerText: "Day Change",
+  //   width: "120",
+  //   textAlign: "Center",
+  // },
+  // {
+  //   field: "unrealized",
+  //   headerText: "Unrealized Gain/loss",
+  //   width: "180",
+  //   textAlign: "Center",
+  // },
+  // {
+  //   field: "realized",
+  //   headerText: "Realized Gain/Loss",
+  //   width: "180",
+  //   textAlign: "Center",
+  // },
 ];
 
 export const symbolsGrid = [
@@ -566,57 +568,58 @@ export const links = [
         to: "stocks",
         icon: <IoMdContacts />,
       },
-      // {
-      //   name: "Losers",
-      //   to: "losers",
-      //   icon: <RiContactsLine />,
-      // },
+      {
+        name: "news",
+        to: "/news",
+        icon: <FaRegNewspaper />,
+
+      },
     ],
   },
   {
-    title: "Charts",
+    title: "News Analysis",
     links: [
-      {
-        name: "line",
-        to: "line",
-        icon: <AiOutlineStock />,
-      },
-      {
-        name: "area",
-        to: "area",
-        icon: <AiOutlineAreaChart />,
-      },
+      // {
+      //   name: "line",
+      //   to: "line",
+      //   icon: <AiOutlineStock />,
+      // },
+      // {
+      //   name: "area",
+      //   to: "area",
+      //   icon: <AiOutlineAreaChart />,
+      // },
 
+      // {
+      //   name: "bar",
+      //   to: "bar",
+      //   icon: <AiOutlineBarChart />,
+      // },
       {
-        name: "bar",
-        to: "bar",
-        icon: <AiOutlineBarChart />,
-      },
-      {
-        name: "pie",
+        name: "AAPL,GOOGL,MSFT",
         to: "pie",
         icon: <FiPieChart />,
       },
-      {
-        name: "financial",
-        to: "financial",
-        icon: <RiStockLine />,
-      },
-      {
-        name: "color-mapping",
-        to: "color-mapping",
-        icon: <BsBarChart />,
-      },
-      {
-        name: "pyramid",
-        to: "pyramid",
-        icon: <GiLouvrePyramid />,
-      },
-      {
-        name: "stacked",
-        to: "stacked",
-        icon: <AiOutlineBarChart />,
-      },
+      // {
+      //   name: "financial",
+      //   to: "financial",
+      //   icon: <RiStockLine />,
+      // },
+      // {
+      //   name: "color-mapping",
+      //   to: "color-mapping",
+      //   icon: <BsBarChart />,
+      // },
+      // {
+      //   name: "pyramid",
+      //   to: "pyramid",
+      //   icon: <GiLouvrePyramid />,
+      // },
+      // {
+      //   name: "stacked",
+      //   to: "stacked",
+      //   icon: <AiOutlineBarChart />,
+      // },
     ],
   },
 ];

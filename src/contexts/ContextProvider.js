@@ -18,6 +18,8 @@ export const ContextProvider = ({ children }) => {
   const [news, setNews] = useState([]);
   const [stocks, setStocks] = useState([]);
   const [portfolios, setPortfolios] = useState([]);
+  const [loadingPortfolios, setLoadingPortfolios] = useState(false);
+
   const [totalNews, setTotalNews] = useState(0);
   const [loadingNews, setLoadingNews] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,7 +31,9 @@ export const ContextProvider = ({ children }) => {
       const newsRes = await axios.get(
         `https://api.marketaux.com/v1/news/all?symbols=TSLA%2CAMZN%2CMSFT&page=${
           page || 1
-        }&filter_entities=true&language=en&api_token=gYiwQNXuHJa6ijweq3wj1J1EPph3qMZTqFnWznYy`
+        }&filter_entities=true&language=en&api_token=tRIt6qH6m6YfszbQ2BxQM0NJYJB7bvjfdEzzKAI0`
+        // tRIt6qH6m6YfszbQ2BxQM0NJYJB7bvjfdEzzKAI0
+        // gYiwQNXuHJa6ijweq3wj1J1EPph3qMZTqFnWznYy
       );
       setLoadingNews(false);
       setTotalNews(newsRes.data.meta.found > 100 ? 100 : newsRes.data.meta.found);
@@ -70,12 +74,25 @@ export const ContextProvider = ({ children }) => {
   };
 
   const getPortfolios = async () => {
+    setLoadingPortfolios(true);
     const res = await axios.get("https://backend-production-ac54.up.railway.app/portfolio/all-portfolios", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
-    setPortfolios(res.data.portfolios);
+    let portfoliosArray = res.data.portfolios;
+    let totalCost;
+    portfoliosArray = portfoliosArray.map((port) => {
+      totalCost = 0;
+      totalCost = port.stocks.reduce((acc, ele) => {
+        return acc + +ele.total_cost;
+      }, 0);
+      totalCost = totalCost > 0 ? totalCost.toFixed(2) : 0;
+      return { symbols: port.stocks.length, cost: totalCost, market: totalCost, ...port };
+    });
+
+    setLoadingPortfolios(false);
+    setPortfolios(portfoliosArray);
   };
 
   const getStocks = async () => {
@@ -125,6 +142,7 @@ export const ContextProvider = ({ children }) => {
         stocks,
         getPortfolios,
         portfolios,
+        loadingPortfolios,
       }}
     >
       {children}

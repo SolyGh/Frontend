@@ -4,6 +4,8 @@ import { earningData } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 import Pagination from "../components/pagination/Pagination";
 import { Loading } from "../components/loading/Loading";
+import { Link } from "react-router-dom";
+import { SiShopware } from "react-icons/si";
 
 const Main = () => {
   const { news, loadingNews } = useStateContext();
@@ -37,17 +39,22 @@ const Main = () => {
   };
 
   return (
-    <div className="mt-24 ">
-      <div className="flex flex-wrap lg:flex-nowrap justify-center px-5">
+    <div className="mt-4 pl-3">
+      <div className="mb-4">
+        <Link to="/" className="items-center gap-3 ml-3 mt-4 flex text-xl font-extralight tracking-tight dark:text-white text-slate-900">
+          <SiShopware /> <span>PFMS</span>
+        </Link>
+      </div>
+      <div className="flex flex-wrap lg:flex-nowrap justify-center px-5 h-screen">
         {loadingNews ? (
-          <div className="flex justify-center items-center" style={{height:"100vh"}}>
+          <div className="flex justify-center items-center h-screen">
             <Loading />
           </div>
         ) : (
           <ul className="w-full">
             {news.map((article) => {
               return (
-                <li className="py-4 w-full" key={article.source}>
+                <li className="py-4 w-full border-b-1 border-blue-200" key={article.source}>
                   <div className="flex justify-start">
                     <div className="flex-shrink-0 mr-3" style={{ width: "220px" }}>
                       <img src={article.image_url} alt="" className="w-full" />
@@ -109,7 +116,7 @@ const Main = () => {
           ))}
         </div> */}
       </div>
-      <Pagination />
+      {loadingNews ? "" : <Pagination />}
     </div>
   );
 };
