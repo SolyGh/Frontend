@@ -51,7 +51,7 @@ const Symbol = () => {
                 <Loading/>
             </div>
           ) : (
-            <ul className="grid-list my-3">
+            <ul className="grid-stock my-3">
               {earnings.map((ele) => {
                 console.log(ele);
                 const key = Object.keys(ele);

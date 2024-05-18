@@ -37,7 +37,7 @@ const Pie = () => {
 
   return (
     <div className="m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
-      <ChartsHeader category="Pie" title="New Analysis Last Week" />
+      <ChartsHeader category="" title="News Analysis Last Week" />
 
       <div className="flex justify-center mb-4">
         {Object.keys(newAnalysisLastWeek).map((company) => (
@@ -53,7 +53,7 @@ const Pie = () => {
       </div>
 
       <div className="w-full">
-        <PieChart id="chart-pie" data={pieChartData} legendVisiblity height="full" />
+        <PieChart id="chart-pie" data={pieChartData} legendVisiblity height="full" company={selectedCompany}/>
       </div>
     </div>
   );

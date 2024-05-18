@@ -90,6 +90,8 @@ const App = () => {
 
               <Routes>
                 <Route path="/" element={<Main />} />
+                <Route path="/news" element={<Main />} />
+
 
                 <Route path="/most-actives" element={<MostActives />} />
                 <Route path="/stocks" element={<Gainers />} />

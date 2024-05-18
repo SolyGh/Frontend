@@ -1,4 +1,4 @@
-@import url("https://cdn.syncfusion.com/ej2/material.css");
+@import url('https://cdn.syncfusion.com/ej2/material.css');
 
 .sidebar {
   box-shadow: rgb(113 122 131 / 11%) 0px 7px 30px 0px;
@@ -32,9 +32,7 @@
 /* color-picker style  */
 
 #preview {
-  background: transparent
-    url("https://ej2.syncfusion.com/react/demos/src/color-picker/images/pen.png")
-    no-repeat;
+  background: transparent url('https://ej2.syncfusion.com/react/demos/src/color-picker/images/pen.png') no-repeat;
   display: inline-block;
   height: 80px;
   margin: 10px 0;
@@ -54,17 +52,21 @@
   border: none;
 }
 
-
-.grid-list {
+.grid-list,
+.grid-stock {
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr)); /* Adjust as needed */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust as needed */
   gap: 25px; /* Adjust gap between grid items */
   list-style-type: none;
   padding: 0;
 }
+.grid-stock {
+  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr)); /* Adjust as needed */
+}
 
-.grid-list li {
+.grid-list li,
+.grid-stock li {
   display: flex;
   align-items: center; /* Centers items horizontally */
   justify-content: space-between; /* Centers items vertically */
@@ -73,6 +75,7 @@
   padding: 10px;
 }
 
-.grid-list li span {
+.grid-list li span,
+.grid-stock li span {
   margin: 5px 0;
 }
