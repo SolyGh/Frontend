@@ -19,6 +19,11 @@ const Pie = () => {
       negative: 4,
       neutral: 9,
     },
+    forex: {
+      positive: 6,
+      negative: 5,
+      neutral: 10,
+    },
   };
 
   const [selectedCompany, setSelectedCompany] = useState("Apple");
@@ -53,7 +58,7 @@ const Pie = () => {
       </div>
 
       <div className="w-full">
-        <PieChart id="chart-pie" data={pieChartData} legendVisiblity height="full" company={selectedCompany}/>
+        <PieChart id="chart-pie" data={pieChartData} legendVisiblity height="full" company={selectedCompany} />
       </div>
     </div>
   );

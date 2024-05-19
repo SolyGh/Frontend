@@ -37,8 +37,7 @@ const Login = () => {
         password,
       });
 
-      // todo add here the right route instead of most-actives
-      navigate("/most-actives");
+      navigate("/news");
       setAllTokens(response.data.token);
       setIsLoggedIn(true);
       setEmail("");

@@ -85,7 +85,14 @@ const Financial = ({ stock, stockName }) => {
               name="Apple Inc"
               type="HiloOpenClose"
             />
-            <SeriesDirective dataSource={stock.historicalData} xName="x" yName="volume" name="Volume" type="Column" yAxisName="volume" />
+            <SeriesDirective
+              dataSource={stock.historicalData}
+              xName="x"
+              yName="volume"
+              name="Volume"
+              type="Column"
+              yAxisName="volume"
+            />
           </SeriesCollectionDirective>
           <AxesDirective>
             <AxisDirective name="volume" opposedPosition={true} title="Volume"></AxisDirective>
@@ -94,17 +101,18 @@ const Financial = ({ stock, stockName }) => {
       </div>
 
       <ul className="grid-list my-3">
-        {stockData.map((ele) => {
-          const key = Object.keys(ele);
+        {stockData.map((ele, index) => {
+          const key = Object.keys(ele)[0];
           const val = ele[key];
           return (
-            <li key={ele.name}>
+            <li key={`${key}-${index}`}>
               <span className="text-sm text-gray-600 capitalize">{key}</span>
               <span className="text-slate-900 font-medium">{val}</span>
             </li>
           );
         })}
       </ul>
+
       <hr />
       {stockName === "aapl" || stockName === "msft" || stockName === "googl" ? (
         <div className="mt-8">

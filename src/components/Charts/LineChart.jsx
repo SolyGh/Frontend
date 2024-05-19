@@ -1,5 +1,4 @@
 // import React, { useEffect, useState } from "react";
-import { LinePrimaryXAxis, LinePrimaryYAxis } from "../../data/dummy";
 // import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, LineSeries, DateTime, Legend, Tooltip } from "@syncfusion/ej2-react-charts";
 
 // import { useStateContext } from "../../contexts/ContextProvider";
@@ -77,7 +76,17 @@ import { LinePrimaryXAxis, LinePrimaryYAxis } from "../../data/dummy";
 
 // export default LineChart;
 
-import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, LineSeries, DateTime, Legend, Tooltip } from "@syncfusion/ej2-react-charts";
+import { LinePrimaryXAxis, LinePrimaryYAxis } from "../../data/dummy";
+import {
+  ChartComponent,
+  SeriesCollectionDirective,
+  SeriesDirective,
+  Inject,
+  LineSeries,
+  DateTime,
+  Legend,
+  Tooltip,
+} from "@syncfusion/ej2-react-charts";
 import { useStateContext } from "../../contexts/ContextProvider";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -85,17 +94,47 @@ import { Loading } from "../loading/Loading";
 
 const LineChart = ({ stockName }) => {
   const { currentMode } = useStateContext();
-  const url = "http://asddf251.pythonanywhere.com/";
+  //   const url = "http://asddf251.pythonanywhere.com/";
+  const res = {
+    predictions: {
+      exchange_rates: {
+        usd_to_egp: {
+          predicted_exchange_rates_next_5_days: [
+            46.50986862182617, 46.331398010253906, 46.142513275146484, 45.96274948120117, 45.790061950683594,
+          ],
+        },
+      },
+      stocks: {
+        Apple: {
+          predicted_prices_next_5_days: [
+            190.69735717773438, 191.02415466308594, 191.44244384765625, 191.95960998535156, 192.44859313964844,
+          ],
+        },
+        Google: {
+          predicted_prices_next_5_days: [
+            174.0711669921875, 173.7799835205078, 173.46255493164062, 173.32293701171875, 173.4291534423828,
+          ],
+        },
+        Microsoft: {
+          predicted_prices_next_5_days: [
+            413.698486328125, 410.06707763671875, 405.822265625, 401.6444396972656, 397.4916076660156,
+          ],
+        },
+      },
+    },
+  };
   const [predictionData, setPredictionData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const getPredictionData = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get(url);
-        const _stockName = stockName === "aapl" ? "Apple" : stockName === "msft" ? "Microsoft" : "Google";
-        const stock = res.data.predictions.stocks[_stockName].predicted_prices_next_5_days;
+  const getPredictionData = async () => {
+    setLoading(true);
+    try {
+      // const res = await axios.get(url);
+      const _stockName = stockName === "aapl" ? "Apple" : stockName === "msft" ? "Microsoft" : "Google";
+      // const stock = res.data.predictions.stocks[_stockName].predicted_prices_next_5_days;
+      setTimeout(() => {
+        const stock = res.predictions.stocks[_stockName].predicted_prices_next_5_days;
+
         const data = [];
         const today = new Date();
         const tomorrow = new Date(today);
@@ -107,15 +146,17 @@ const LineChart = ({ stockName }) => {
         }
 
         setPredictionData(data);
-      } catch (error) {
-        console.error("Error fetching prediction data:", error);
-      } finally {
-        setLoading(false);
-        console.log(lineCustomSeries);
-      }
-    };
+      }, 500);
+    } catch (error) {
+      console.error("Error fetching prediction data:", error);
+    } finally {
+      setLoading(false);
+      console.log(lineCustomSeries);
+    }
+  };
 
-    getPredictionData();
+  useEffect(async () => {
+    await getPredictionData();
   }, []);
 
   const lineCustomSeries = {

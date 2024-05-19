@@ -92,7 +92,6 @@ const App = () => {
                 <Route path="/" element={<Main />} />
                 <Route path="/news" element={<Main />} />
 
-
                 <Route path="/most-actives" element={<MostActives />} />
                 <Route path="/stocks" element={<Gainers />} />
                 <Route path="/stocks/:stockName" element={<Stock />} />
@@ -105,8 +104,6 @@ const App = () => {
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/portfolio/:company/:id" element={<View />} />
                 <Route path="/portfolio/:company/:portfolio_id/:stock/:stock_id" element={<Symbol />} />
-
-
 
                 <Route path="/line" element={<Line />} />
                 <Route path="/area" element={<Area />} />
